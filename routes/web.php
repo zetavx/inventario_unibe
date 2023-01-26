@@ -11,12 +11,11 @@
 |
 */
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
-
-Route::get('/', function () {
-    return redirect()->to("/login");
-});
+Route::get('/', [HomeController::class, 'login']);
 //-------------------------------
 // Áreas
 //-------------------------------
@@ -87,11 +86,7 @@ Route::group(
         Route::post("articulos/eliminar", "ArticulosController@eliminar")->name("eliminarArticulo");
 
         # Logout
-        Route::get("logout", function () {
-            Auth::logout();
-            # Intentar redireccionar a una protegida, que a su vez redirecciona al login :)
-            return redirect()->route("articulos");
-        })->name("logout");
+        Route::get('logout', [HomeController::class, 'logout'])->name('logout');
     });
 
 
